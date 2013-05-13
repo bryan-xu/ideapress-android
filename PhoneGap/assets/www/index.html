@@ -47,11 +47,29 @@
                     <p>I'm first in the source order so I'm shown as the page.</p>
                     <p>View internal page called <a href="#bar">bar</a></p>
                     <a href="#" data-role="button" id="btnStart">Button</a>
-                    
+                    <a href="#post" data-role="button" id="btnOpenPost">Open Post</a>
                     <a href="#" data-role="button" id="btnGetRecentPosts">Get Recent Posts On This Page</a>
                     <div id="recentPostContent"></div>
                     
                     <p><a href="spec.html">next page</a></p>
+                </div><!-- /content -->
+                
+                <div data-role="footer">
+                    <h4>Page Footer</h4>
+                </div><!-- /footer -->
+            </div><!-- /page -->
+            
+            <!-- Start of internal page: a post -->
+            <div data-role="page" id="post">
+                
+                <div data-role="header">
+                    <h1>A Post</h1>
+                </div><!-- /header -->
+                
+                <div data-role="content">
+                    <h1>The following is loaded by AJAX</h1>
+                    <div id="singlePost"></div>
+                    <p><a href="#foo">Back to foo</a></p>
                 </div><!-- /content -->
                 
                 <div data-role="footer">
@@ -66,8 +84,8 @@
                     <h1>Bar</h1>
                 </div><!-- /header -->
                 
-                <div data-role="content">
-                    <p>I'm the second in the source order so I'm hidden when the page loads. I'm just shown if a link that references my id is beeing clicked.</p>
+                <div data-role="content" id="singlePost">
+                    <p>I'm the second in the source order so I'm hidden when the page loads. I'm just shown if a link that references my id is being clicked.</p>
                     <p><a href="#foo">Back to foo</a></p>
                 </div><!-- /content -->
                 
@@ -85,8 +103,8 @@
                  $.mobile.navigate("#bar");                  
               });
             });
+            
             $("#btnGetRecentPosts").click(function(){
-            	
                 $.getJSON("http://ideanotion.net/?json=get_recent_posts", function(data) {
                     //alert(data.posts[0].id);	//id of first post
                     var postContent;
@@ -94,12 +112,16 @@
 					{ 
 						postContent = postContent + data.posts[i].content;
 					}
-					$('#recentPostContent').html(postContent);
-                    
+					$('#recentPostContent').html(postContent);        
                 });
-            	
             });
             
+            $("#btnOpenPost").click(function(){
+                $.getJSON("http://ideanotion.net/?json=get_post&slug=ideapress-step-by-step", function(data) {
+                    //alert(data.posts.id);	//id of first post
+					$('#singlePost').html(data.post.content);        
+                });
+            });
         </script>
     </body>
 </html>
