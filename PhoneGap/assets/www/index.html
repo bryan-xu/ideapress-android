@@ -46,9 +46,11 @@
                 <div data-role="content">
                     <p>I'm first in the source order so I'm shown as the page.</p>
                     <p>View internal page called <a href="#bar">bar</a></p>
-                    <a href="#" data-role="button" id="btnStart">Button</a>
-                    <a href="#post" data-role="button" id="btnOpenPost">Open Post</a>
-                    <a href="#" data-role="button" id="btnGetRecentPosts">Get Recent Posts On This Page</a>
+                    <a href="#" data-role="button" id="btnStart">A Simple Internal Page</a>
+                    <a href="#post" data-role="button" id="btnOpenPost">Open Single Post (AJAX)</a>
+                    <a href="#" data-role="button" id="btnListRecent">List Recent Posts (AJAX)</a>
+                    <div id="listRecent"></div>
+                    <a href="#" data-role="button" id="btnGetRecentPosts">Load Recent Posts Onto This Page</a>
                     <div id="recentPostContent"></div>
                     
                     <p><a href="spec.html">next page</a></p>
@@ -104,6 +106,7 @@
               });
             });
             
+            // Load recent posts onto main page
             $("#btnGetRecentPosts").click(function(){
                 $.getJSON("http://ideanotion.net/?json=get_recent_posts", function(data) {
                     //alert(data.posts[0].id);	//id of first post
@@ -116,10 +119,24 @@
                 });
             });
             
+            // Open an internal page and load a single post by AJAX
             $("#btnOpenPost").click(function(){
                 $.getJSON("http://ideanotion.net/?json=get_post&slug=ideapress-step-by-step", function(data) {
-                    //alert(data.posts.id);	//id of first post
 					$('#singlePost').html(data.post.content);        
+                });
+            });
+            
+            // List the titles of the recent posts and their link
+            $("#btnListRecent").click(function(){
+                $.getJSON("http://ideanotion.net/?json=get_recent_posts", function(data) {
+                    var items = [];
+                    items.push('<ul>');
+                    for (var i=0;i<data.posts.length;i++)
+					{ 
+						items.push('<li><a href="' + data.posts[i].url + '">' + data.posts[i].title + '</a></li>');
+					}
+                    items.push('</ul>');
+					$('#listRecent').html(items.join(''));        
                 });
             });
         </script>
