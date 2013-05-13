@@ -46,7 +46,11 @@
                 <div data-role="content">
                     <p>I'm first in the source order so I'm shown as the page.</p>
                     <p>View internal page called <a href="#bar">bar</a></p>
-                    <a href="#" data-role="button" data-icon="star" id="btnStart">Star button</a>
+                    <a href="#" data-role="button" id="btnStart">Button</a>
+                    
+                    <a href="#" data-role="button" id="btnGetRecentPosts">Get Recent Posts On This Page</a>
+                    <div id="recentPostContent"></div>
+                    
                     <p><a href="spec.html">next page</a></p>
                 </div><!-- /content -->
                 
@@ -80,6 +84,20 @@
               $('#btnStart').click(function() {
                  $.mobile.navigate("#bar");                  
               });
+            });
+            $("#btnGetRecentPosts").click(function(){
+            	
+                $.getJSON("http://ideanotion.net/?json=get_recent_posts", function(data) {
+                    //alert(data.posts[0].id);	//id of first post
+                    var postContent;
+                    for (var i=0;i<data.posts.length;i++)
+					{ 
+						postContent = postContent + data.posts[i].content;
+					}
+					$('#recentPostContent').html(postContent);
+                    
+                });
+            	
             });
             
         </script>
