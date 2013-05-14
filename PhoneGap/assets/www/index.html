@@ -46,8 +46,8 @@
                 <div data-role="content">
                     <p>I'm first in the source order so I'm shown as the page.</p>
                     <p>View internal page called <a href="#bar">bar</a></p>
-                    <a href="#" data-role="button" id="btnStart">A Simple Internal Page</a>
-                    <a href="#post" data-role="button" id="btnOpenPost">Open Single Post (AJAX)</a>
+                    <a href="#" data-role="button" id="btnStart" data-transition="flip">A Simple Internal Page</a>
+                    <a href="#post" data-role="button" id="btnOpenPost" data-transition="flip">Open Single Post (AJAX)</a>
                     <a href="#" data-role="button" id="btnListRecent">List Recent Posts (AJAX)</a>
                     <div id="listRecent"></div>
                     <a href="#" data-role="button" id="btnGetRecentPosts">Load Recent Posts Onto This Page</a>
@@ -79,7 +79,7 @@
                 </div><!-- /footer -->
             </div><!-- /page -->
             
-            <!-- Start of second page -->
+            <!-- Start of another internal page -->
             <div data-role="page" id="bar">
                 
                 <div data-role="header">
@@ -87,7 +87,7 @@
                 </div><!-- /header -->
                 
                 <div data-role="content" id="singlePost">
-                    <p>I'm the second in the source order so I'm hidden when the page loads. I'm just shown if a link that references my id is being clicked.</p>
+                    <p>I'm an internal page, so I'm hidden when the page loads. I'm just shown if a link that references my id is being clicked.</p>
                     <p><a href="#foo">Back to foo</a></p>
                 </div><!-- /content -->
                 
